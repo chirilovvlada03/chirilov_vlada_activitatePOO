@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+// Structura pentru a reprezenta caracteristicile unui bloc
+struct Bloc {
+    std::string strada;
+    int numarScari;
+    int numarApartamente;
+    int anulConstructiei;
+    std::string tipMaterialConstructie;
+};
+
+// Functie pentru citirea informatiilor unui bloc
+void citesteBloc(Bloc &bloc) {
+    std::cout << "Introduceti strada: ";
+    std::getline(std::cin, bloc.strada);
+
+    std::cout << "Introduceti numarul de scari: ";
+    std::cin >> bloc.numarScari;
+
+    std::cout << "Introduceti numarul de apartamente: ";
+    std::cin >> bloc.numarApartamente;
+
+    std::cout << "Introduceti anul constructiei: ";
+    std::cin >> bloc.anulConstructiei;
+
+    std::cin.ignore(); // Consumam newline-ul ramas in buffer
+    std::cout << "Introduceti tipul materialului de constructie: ";
+    std::getline(std::cin, bloc.tipMaterialConstructie);
+}
+
+// Functie pentru afisarea informatiilor unui bloc
+void afiseazaBloc(const Bloc &bloc) {
+    std::cout << "Blocul de pe strada " << bloc.strada
+              << ", are " << bloc.numarScari << " scari, "
+              << bloc.numarApartamente << " apartamente, construit in anul "
+              << bloc.anulConstructiei << ", din material "
+              << bloc.tipMaterialConstructie << "." << std::endl;
+}
+
+int main() {
+    const int numarBlocuri = 10;
+    std::vector<Bloc> blocuri(numarBlocuri);
+
+    // Citim informatiile pentru fiecare bloc
+    for (int i = 0; i < numarBlocuri; ++i) {
+        std::cout << "\nIntroduceti informatiile pentru blocul " << i + 1 << ":" << std::endl;
+        citesteBloc(blocuri[i]);
+    }
+
+    // Afisam informatiile pentru fiecare bloc
+    std::cout << "\nInformatiile despre blocuri:" << std::endl;
+    for (int i = 0; i < numarBlocuri; ++i) {
+        afiseazaBloc(blocuri[i]);
+    }
+
+    return 0;
+}
