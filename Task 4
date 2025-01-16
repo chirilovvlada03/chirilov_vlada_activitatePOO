@@ -1,0 +1,327 @@
+#include <iostream>
+#include <cstring>
+
+class Masina {
+private:
+    std::string marca;
+    int vitezaMaxima;
+    static int nrMasini;
+    const int anFabricatie;
+    char *tipCaroserie;
+
+public:
+    Masina() : anFabricatie(2000) {
+        marca = "Necunoscut";
+        vitezaMaxima = 0;
+        tipCaroserie = new char[10];
+        strcpy(tipCaroserie, "Necunoscut");
+        nrMasini++;
+    }
+
+    Masina(const std::string &marca, int viteza, int an) : anFabricatie(an) {
+        this->marca = marca;
+        vitezaMaxima = viteza;
+        tipCaroserie = new char[10];
+        strcpy(tipCaroserie, "Sedan");
+        nrMasini++;
+    }
+
+    Masina(const std::string &marca, int viteza, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        vitezaMaxima = viteza;
+        tipCaroserie = new char[strlen(tip) + 1];
+        strcpy(tipCaroserie, tip);
+        nrMasini++;
+    }
+
+    Masina(const Masina &other) : anFabricatie(other.anFabricatie) {
+        marca = other.marca;
+        vitezaMaxima = other.vitezaMaxima;
+        tipCaroserie = new char[strlen(other.tipCaroserie) + 1];
+        strcpy(tipCaroserie, other.tipCaroserie);
+    }
+
+    Masina &operator=(const Masina &other) {
+        if (this != &other) {
+            marca = other.marca;
+            vitezaMaxima = other.vitezaMaxima;
+            delete[] tipCaroserie;
+            tipCaroserie = new char[strlen(other.tipCaroserie) + 1];
+            strcpy(tipCaroserie, other.tipCaroserie);
+        }
+        return *this;
+    }
+
+    Masina operator+(int viteza) const {
+        Masina temp(*this);
+        temp.vitezaMaxima += viteza;
+        return temp;
+    }
+
+    bool operator==(const Masina &other) const {
+        return marca == other.marca && vitezaMaxima == other.vitezaMaxima && strcmp(tipCaroserie, other.tipCaroserie) == 0;
+    }
+
+    bool operator<(const Masina &other) const {
+        return vitezaMaxima < other.vitezaMaxima;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, const Masina &m) {
+        out << "Marca: " << m.marca << ", Viteza maxima: " << m.vitezaMaxima << ", Tip caroserie: " << m.tipCaroserie;
+        return out;
+    }
+
+    ~Masina() {
+        delete[] tipCaroserie;
+    }
+
+    std::string getMarca() const { return marca; }
+    void setMarca(const std::string &marca) { this->marca = marca; }
+
+    int getVitezaMaxima() const { return vitezaMaxima; }
+    void setVitezaMaxima(int viteza) { vitezaMaxima = viteza; }
+
+    const char *getTipCaroserie() const { return tipCaroserie; }
+    void setTipCaroserie(const char *tip) {
+        delete[] tipCaroserie;
+        tipCaroserie = new char[strlen(tip) + 1];
+        strcpy(tipCaroserie, tip);
+    }
+
+    static int getNrMasini() { return nrMasini; }
+};
+int Masina::nrMasini = 0;
+
+class Camion {
+private:
+    std::string marca;
+    double capacitateTonaj;
+    static int nrCamioane;
+    const int anFabricatie;
+    char *tipTransport;
+
+public:
+    Camion() : anFabricatie(2010) {
+        marca = "Necunoscut";
+        capacitateTonaj = 0;
+        tipTransport = new char[10];
+        strcpy(tipTransport, "Marfa");
+        nrCamioane++;
+    }
+
+    Camion(const std::string &marca, double capacitate, int an) : anFabricatie(an) {
+        this->marca = marca;
+        capacitateTonaj = capacitate;
+        tipTransport = new char[10];
+        strcpy(tipTransport, "Marfa");
+        nrCamioane++;
+    }
+
+    Camion(const std::string &marca, double capacitate, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        capacitateTonaj = capacitate;
+        tipTransport = new char[strlen(tip) + 1];
+        strcpy(tipTransport, tip);
+        nrCamioane++;
+    }
+
+    Camion(const Camion &other) : anFabricatie(other.anFabricatie) {
+        marca = other.marca;
+        capacitateTonaj = other.capacitateTonaj;
+        tipTransport = new char[strlen(other.tipTransport) + 1];
+        strcpy(tipTransport, other.tipTransport);
+    }
+
+    Camion &operator=(const Camion &other) {
+        if (this != &other) {
+            marca = other.marca;
+            capacitateTonaj = other.capacitateTonaj;
+            delete[] tipTransport;
+            tipTransport = new char[strlen(other.tipTransport) + 1];
+            strcpy(tipTransport, other.tipTransport);
+        }
+        return *this;
+    }
+
+    Camion operator-(double tonaj) const {
+        Camion temp(*this);
+        temp.capacitateTonaj -= tonaj;
+        return temp;
+    }
+
+    bool operator>(const Camion &other) const {
+        return capacitateTonaj > other.capacitateTonaj;
+    }
+
+    bool operator!=(const Camion &other) const {
+        return marca != other.marca || capacitateTonaj != other.capacitateTonaj || strcmp(tipTransport, other.tipTransport) != 0;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, const Camion &c) {
+        out << "Marca: " << c.marca << ", Capacitate tonaj: " << c.capacitateTonaj << ", Tip transport: " << c.tipTransport;
+        return out;
+    }
+
+    ~Camion() {
+        delete[] tipTransport;
+    }
+
+    std::string getMarca() const { return marca; }
+    void setMarca(const std::string &marca) { this->marca = marca; }
+
+    double getCapacitateTonaj() const { return capacitateTonaj; }
+    void setCapacitateTonaj(double capacitate) { capacitateTonaj = capacitate; }
+
+    const char *getTipTransport() const { return tipTransport; }
+    void setTipTransport(const char *tip) {
+        delete[] tipTransport;
+        tipTransport = new char[strlen(tip) + 1];
+        strcpy(tipTransport, tip);
+    }
+
+    static int getNrCamioane() { return nrCamioane; }
+};
+int Camion::nrCamioane = 0;
+
+class Motocicleta {
+private:
+    std::string marca;
+    bool esteSport;
+    static int nrMotociclete;
+    const int anFabricatie;
+    char *tipMotor;
+
+public:
+    Motocicleta() : anFabricatie(2015) {
+        marca = "Necunoscut";
+        esteSport = false;
+        tipMotor = new char[10];
+        strcpy(tipMotor, "Necunoscut");
+        nrMotociclete++;
+    }
+
+    Motocicleta(const std::string &marca, bool sport, int an) : anFabricatie(an) {
+        this->marca = marca;
+        esteSport = sport;
+        tipMotor = new char[10];
+        strcpy(tipMotor, "Sport");
+        nrMotociclete++;
+    }
+
+    Motocicleta(const std::string &marca, bool sport, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        esteSport = sport;
+        tipMotor = new char[strlen(tip) + 1];
+        strcpy(tipMotor, tip);
+        nrMotociclete++;
+    }
+
+    Motocicleta(const Motocicleta &other) : anFabricatie(other.anFabricatie) {
+        marca = other.marca;
+        esteSport = other.esteSport;
+        tipMotor = new char[strlen(other.tipMotor) + 1];
+        strcpy(tipMotor, other.tipMotor);
+    }
+
+    Motocicleta &operator=(const Motocicleta &other) {
+        if (this != &other) {
+            marca = other.marca;
+            esteSport = other.esteSport;
+            delete[] tipMotor;
+            tipMotor = new char[strlen(other.tipMotor) + 1];
+            strcpy(tipMotor, other.tipMotor);
+        }
+        return *this;
+    }
+
+    Motocicleta operator!() const {
+        Motocicleta temp(*this);
+        temp.esteSport = !temp.esteSport;
+        return temp;
+    }
+
+    bool operator<=(const Motocicleta &other) const {
+        return anFabricatie <= other.anFabricatie;
+    }
+
+    bool operator==(const Motocicleta &other) const {
+        return marca == other.marca && esteSport == other.esteSport && strcmp(tipMotor, other.tipMotor) == 0;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, const Motocicleta &m) {
+        out << "Marca: " << m.marca << ", Este sport: " << (m.esteSport ? "Da" : "Nu") << ", Tip motor: " << m.tipMotor;
+        return out;
+    }
+
+    ~Motocicleta() {
+        delete[] tipMotor;
+    }
+
+    std::string getMarca() const { return marca; }
+    void setMarca(const std::string &marca) { this->marca = marca; }
+
+    bool getEsteSport() const { return esteSport; }
+    void setEsteSport(bool sport) { esteSport = sport; }
+
+    const char *getTipMotor() const { return tipMotor; }
+    void setTipMotor(const char *tip) {
+        delete[] tipMotor;
+        tipMotor = new char[strlen(tip) + 1];
+        strcpy(tipMotor, tip);
+    }
+
+    static int getNrMotociclete() { return nrMotociclete; }
+};
+int Motocicleta::nrMotociclete = 0;
+
+// Functii prietene
+void modificaMasina(Masina &m, const std::string &marcaNoua) {
+    m.marca = marcaNoua;
+}
+
+void afiseazaCamion(const Camion &c) {
+    std::cout << "Camionul " << c.marca << " transporta: " << c.tipTransport << std::endl;
+}
+
+int main() {
+    Masina masina1("Dacia", 150, "Hatchback", 2015);
+    Masina masina2 = masina1;
+    Masina masina3;
+    masina3 = masina2;
+
+    std::cout << masina1 << std::endl;
+    std::cout << masina2 << std::endl;
+    std::cout << masina3 << std::endl;
+
+    masina3 = masina3 + 10;
+    std::cout << "Dupa cresterea vitezei: " << masina3 << std::endl;
+
+    Camion camion1("MAN", 20.0, "Frigorific", 2018);
+    Camion camion2 = camion1;
+    Camion camion3;
+    camion3 = camion2;
+
+    std::cout << camion1 << std::endl;
+    std::cout << camion2 << std::endl;
+    std::cout << camion3 << std::endl;
+
+    camion3 = camion3 - 5.0;
+    std::cout << "Dupa reducerea tonajului: " << camion3 << std::endl;
+
+    Motocicleta moto1("Kawasaki", true, "Sport", 2021);
+    Motocicleta moto2 = moto1;
+    Motocicleta moto3;
+    moto3 = moto2;
+
+    std::cout << moto1 << std::endl;
+    std::cout << moto2 << std::endl;
+    std::cout << moto3 << std::endl;
+
+    moto3 = !moto3;
+    std::cout << "Dupa schimbarea tipului sport: " << moto3 << std::endl;
+
+    modificaMasina(masina1, "Renault");
+    afiseazaCamion(camion1);
+
+    return 0;
+}
