@@ -1,0 +1,148 @@
+#include <iostream>
+#include <cstring>
+
+class Masina {
+public:
+    std::string marca;
+    int vitezaMaxima;
+    static int nrMasini;
+    const int anFabricatie;
+    char *tipCaroserie;
+
+    Masina() : anFabricatie(2000) {
+        marca = "Necunoscut";
+        vitezaMaxima = 0;
+        tipCaroserie = new char[10];
+        strcpy(tipCaroserie, "Necunoscut");
+        nrMasini++;
+    }
+
+    Masina(const std::string &marca, int viteza, int an) : anFabricatie(an) {
+        this->marca = marca;
+        vitezaMaxima = viteza;
+        tipCaroserie = new char[10];
+        strcpy(tipCaroserie, "Sedan");
+        nrMasini++;
+    }
+
+    Masina(const std::string &marca, int viteza, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        vitezaMaxima = viteza;
+        tipCaroserie = new char[strlen(tip) + 1];
+        strcpy(tipCaroserie, tip);
+        nrMasini++;
+    }
+
+    ~Masina() {
+        delete[] tipCaroserie;
+    }
+
+    static void afiseazaNrMasini() {
+        std::cout << "Numarul total de masini: " << nrMasini << std::endl;
+    }
+};
+int Masina::nrMasini = 0;
+
+class Camion {
+public:
+    std::string marca;
+    double capacitateTonaj;
+    static int nrCamioane;
+    const int anFabricatie;
+    char *tipTransport;
+
+    Camion() : anFabricatie(2010) {
+        marca = "Necunoscut";
+        capacitateTonaj = 0;
+        tipTransport = new char[10];
+        strcpy(tipTransport, "Marfa");
+        nrCamioane++;
+    }
+
+    Camion(const std::string &marca, double capacitate, int an) : anFabricatie(an) {
+        this->marca = marca;
+        capacitateTonaj = capacitate;
+        tipTransport = new char[10];
+        strcpy(tipTransport, "Marfa");
+        nrCamioane++;
+    }
+
+    Camion(const std::string &marca, double capacitate, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        capacitateTonaj = capacitate;
+        tipTransport = new char[strlen(tip) + 1];
+        strcpy(tipTransport, tip);
+        nrCamioane++;
+    }
+
+    ~Camion() {
+        delete[] tipTransport;
+    }
+
+    static void afiseazaNrCamioane() {
+        std::cout << "Numarul total de camioane: " << nrCamioane << std::endl;
+    }
+};
+int Camion::nrCamioane = 0;
+
+class Motocicleta {
+public:
+    std::string marca;
+    bool esteSport;
+    static int nrMotociclete;
+    const int anFabricatie;
+    char *tipMotor;
+
+    Motocicleta() : anFabricatie(2015) {
+        marca = "Necunoscut";
+        esteSport = false;
+        tipMotor = new char[10];
+        strcpy(tipMotor, "Necunoscut");
+        nrMotociclete++;
+    }
+
+    Motocicleta(const std::string &marca, bool sport, int an) : anFabricatie(an) {
+        this->marca = marca;
+        esteSport = sport;
+        tipMotor = new char[10];
+        strcpy(tipMotor, "Sport");
+        nrMotociclete++;
+    }
+
+    Motocicleta(const std::string &marca, bool sport, const char *tip, int an) : anFabricatie(an) {
+        this->marca = marca;
+        esteSport = sport;
+        tipMotor = new char[strlen(tip) + 1];
+        strcpy(tipMotor, tip);
+        nrMotociclete++;
+    }
+
+    ~Motocicleta() {
+        delete[] tipMotor;
+    }
+
+    static void afiseazaNrMotociclete() {
+        std::cout << "Numarul total de motociclete: " << nrMotociclete << std::endl;
+    }
+};
+int Motocicleta::nrMotociclete = 0;
+
+int main() {
+    Masina masina1;
+    Masina masina2("Toyota", 180, 2020);
+    Masina masina3("BMW", 240, "Coupe", 2022);
+
+    Camion camion1;
+    Camion camion2("Mercedes", 18.5, 2018);
+    Camion camion3("Volvo", 25.0, "Transport persoane", 2021);
+
+    Motocicleta moto1;
+    Motocicleta moto2("Yamaha", true, 2023);
+    Motocicleta moto3("Honda", false, "Cruiser", 2020);
+
+    Masina::afiseazaNrMasini();
+    Camion::afiseazaNrCamioane();
+    Motocicleta::afiseazaNrMotociclete();
+
+    return 0;
+}
